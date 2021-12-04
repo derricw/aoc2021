@@ -69,13 +69,7 @@ func (c *Card) CheckCols() bool {
 }
 
 func (c *Card) Check() bool {
-	if c.CheckRows() {
-		return true
-	}
-	if c.CheckCols() {
-		return true
-	}
-	return false
+	return c.CheckRows() || c.CheckCols()
 }
 
 func NewCard() *Card {
@@ -127,17 +121,15 @@ func loseGame(numbers []string, cards []*Card) (string, *Card) {
 func solveP1(in []string) int {
 	numbers, cards := makeGame(in)
 	lastNum, winCard := playGame(numbers, cards)
-	score := winCard.Score()
 	winNum, _ := strconv.Atoi(lastNum)
-	return score * winNum
+	return winCard.Score() * winNum
 }
 
 func solveP2(in []string) int {
 	numbers, cards := makeGame(in)
 	lastNum, winCard := loseGame(numbers, cards)
-	score := winCard.Score()
 	winNum, _ := strconv.Atoi(lastNum)
-	return score * winNum
+	return winCard.Score() * winNum
 }
 
 func makeGame(in []string) (numbers []string, cards []*Card) {
